@@ -1,6 +1,6 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getFirestore , doc , setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 const firebaseConfig = {
     apiKey: "AIzaSyCUZBdQ0TopHRfktfUrW_85EuwXQ-AgH6E",
@@ -41,14 +41,20 @@ submit.addEventListener('click', function (event) {
         displayName : username,
         idNumber : idNumber,
         school : school
-
+      
 
 
     }) 
+
+    sendEmailVerification(auth.currentUser)
+    .then(() => {
+      alert("Email verification link sent");
+    })
+
     .then(() => {
 
         alert("Account Created. Please verify your email before logging in")
-        window.location.href="profile.html";
+        window.location.href="login.html";
     })    
     
     // ...
