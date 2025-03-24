@@ -26,9 +26,12 @@ signInWithEmailAndPassword(auth, email, password)
 .then((userCredential) => {
     const user = userCredential.user;
 
+    if(user.emailVerified){
     localStorage.setItem("user", JSON.stringify({ uid: user.uid, email: user.email }));
-
     window.location.href = "profile.html"
+    }else{
+        alert("Please verify your email before logging in")
+    }
 })
 .catch((error) => {
     const errorMessage = error.message;
